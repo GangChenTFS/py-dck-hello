@@ -34,9 +34,13 @@ ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cl
 
 # Get a simple hello world application with python
 
-# 1. mkdir -p /apps ;git clone https://github.com/henshitou/py-dck-hello.git
+# 1. Get source code and make mount point
 
-# 2. Check below files helloworld.py(python hello world), Dockerfile(python docker image) and py-deployment.yaml(deploy files).
+   mkdir -p /apps ;git clone https://github.com/henshitou/py-dck-hello.git
+
+# 2. Review files and verify each contain as requirement
+
+   Check below files helloworld.py(python hello world), Dockerfile(python docker image) and py-deployment.yaml(deploy files).
 
    1>  helloworld.py
    
