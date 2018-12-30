@@ -55,7 +55,7 @@ ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cl
      CMD ["python", "helloworld.py"]
         
      3> py-deployment.yaml
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     
      apiVersion: v1
      kind: Service
      metadata:
@@ -109,12 +109,12 @@ ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cl
      resources:
        requests:
        storage: 5Gi
-    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
+     
      # Notice: before claim the persistentvolume, you need to create persistentvolume
      kubectl apply --f hellopy-pv.yaml (fill below contain to this yaml file)
      
-     kind: PersistentVolume
-     apiVersion: v1
+     kind: PersistentVolume \
+     apiVersion: v1 \
      metadata:
        name: apps-pv-volume
        namespace: default
@@ -132,9 +132,9 @@ ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cl
          path: "/app/home"     
      
 3. Build and deploy python hello world  
-# Build the image on your local machine
+Build the image on your local machine
   docker build -t henshitou/helloworld-python .
-# Push the container to docker registry
+Push the container to docker registry
  docker push henshitou/helloworld-python
 
 4. Deploy the app into your cluster
