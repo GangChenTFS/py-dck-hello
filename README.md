@@ -1,44 +1,44 @@
-### Write a simple hello world application in Python. Build the application within a Docker container and then load balance the application within a Kubernetes Cluster
+# Write a simple hello world application in Python. Build the application within a Docker container and then load balance the application within a Kubernetes Cluster
 
 ## Setup Kubelet Cluster by kubespray
 
-# 1. Get kubespray.
+### 1. Get kubespray.
 
 https://github.com/henshitou/ansible-k8s.git
 
-# 2. Install dependencies from "requirements.txt"
+### 2. Install dependencies from "requirements.txt"
 
 sudo pip install -r requirements.txt
 
-# 3. Copy "inventory/sample" as "inventory/mycluster"
+### 3. Copy "inventory/sample" as "inventory/mycluster"
 
 cp -rfp inventory/sample inventory/mycluster
 
-# 4. Update Ansible inventory file with inventory builder
+### 4. Update Ansible inventory file with inventory builder
 
 declare -a IPS=(192.168.1.99 192.168.1.100 192.168.1.102)
 
 CONFIG_FILE=inventory/mycluster/hosts.ini python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 
-# 5. Review and change parameters under "inventory/mycluster/group_vars"
+### 5. Review and change parameters under "inventory/mycluster/group_vars"
 
 cat inventory/mycluster/group_vars/all/all.yml
 
 cat inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml
 
-# 6. Deploy Kubespray with Ansible Playbook
+### 6. Deploy Kubespray with Ansible Playbook
 
 ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cluster.yml
 
 ## Deploy Build the application within a Docker container and then load balance the application
 
-# Get a simple hello world application with python
+### Get a simple hello world application with python
 
-# 1. Get source code and make mount point
+### 1. Get source code and make mount point
 
    mkdir -p /apps ;git clone https://github.com/henshitou/py-dck-hello.git
 
-# 2. Review files and verify each contain as requirement
+### 2. Review files and verify each contain as requirement
 
    Check below files helloworld.py(python hello world), Dockerfile(python docker image) and py-deployment.yaml(deploy files).
 
@@ -236,7 +236,7 @@ ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cl
        
          path: "/app/home"     
      
-# 3. Build and deploy python hello world  
+### 3. Build and deploy python hello world  
 
 Build the image on your local machine
 
@@ -246,16 +246,17 @@ Push the container to docker registry
 
  docker push henshitou/helloworld-python
 
-# 4. Deploy the app into your cluster
+### 4. Deploy the app into your cluster
 
 kubectl apply --f py-deployment.yaml
 
-# 5. Find the IP address for your service 
+### 5. Find the IP address for your service 
 kubectl get svc --all-namespaces
 
-# 6. To find the URL for your service, use
+### 6. To find the URL for your service, use
 kubectl get svc helloworld-python  --output=custom-columns=NAME:.metadata.name,DOMAIN:.status.domain
 
-# 7. Request to the app to see the result. the IP_ADDRESS refer to step5 in this part
+### 7. Request to the app to see the result. the IP_ADDRESS refer to step5 in this part
 curl -H "Host: helloworld-python.default.example.com" http://{IP_ADDRESS}
 
+## All above steps could be write with and auto installation scripts.
