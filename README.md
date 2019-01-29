@@ -8,7 +8,7 @@ git clone https://github.com/henshitou/ansible-k8s.git
 
 ### 2. Install dependencies from "requirements.txt"
 
-sudo pip install -r requirements.txt
+cd ansible-k8s; sudo pip install -r requirements.txt
 
 ### 3. Copy "inventory/sample" as "inventory/mycluster"
 
