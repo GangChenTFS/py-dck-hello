@@ -4,7 +4,7 @@
 
 ### 1. Get kubespray.
 
-https://github.com/henshitou/ansible-k8s.git
+git clone https://github.com/henshitou/ansible-k8s.git
 
 ### 2. Install dependencies from "requirements.txt"
 
